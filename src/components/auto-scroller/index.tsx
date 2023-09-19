@@ -5,25 +5,13 @@ interface IProps {
   children: JSX.Element[];
   margin?: string;
   speed: string;
-  direction:
-    | "normal"
-    | "reverse"
-    | "alternate"
-    | "alternate-reverse"
-    | "initial"
-    | "inherit";
+  direction: "normal" | "reverse" | "alternate" | "alternate-reverse" | "initial" | "inherit";
   pauseOnHover?: boolean;
 }
 
-const AutoScroller = ({
-  children,
-  margin,
-  speed,
-  direction,
-  pauseOnHover
-}: IProps) => {
-  const primaryScrollerRef = useRef(null);
-  const secondaryScrollerRef = useRef(null);
+const AutoScroller = ({ children, margin, speed, direction, pauseOnHover }: IProps) => {
+  const primaryScrollerRef = useRef<HTMLInputElement>(null);
+  const secondaryScrollerRef = useRef<HTMLInputElement>(null);
 
   const mouseEnterHandler = () => {
     if (pauseOnHover) {
@@ -53,30 +41,16 @@ const AutoScroller = ({
 
   return (
     <Styled.Container margin={margin}>
-      <Styled.ContentHolder
-        ref={primaryScrollerRef}
-        direction={direction}
-        speed={speed}
-      >
+      <Styled.ContentHolder ref={primaryScrollerRef} direction={direction} speed={speed}>
         {children.map((c) => (
-          <Styled.ContentWrapper
-            onMouseEnter={mouseEnterHandler}
-            onMouseLeave={mouseLeaveHandler}
-          >
+          <Styled.ContentWrapper onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             {c}
           </Styled.ContentWrapper>
         ))}
       </Styled.ContentHolder>
-      <Styled.DuplicateContentHolder
-        ref={secondaryScrollerRef}
-        direction={direction}
-        speed={speed}
-      >
+      <Styled.DuplicateContentHolder ref={secondaryScrollerRef} direction={direction} speed={speed}>
         {children.map((c) => (
-          <Styled.ContentWrapper
-            onMouseEnter={mouseEnterHandler}
-            onMouseLeave={mouseLeaveHandler}
-          >
+          <Styled.ContentWrapper onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             {c}
           </Styled.ContentWrapper>
         ))}
@@ -87,7 +61,7 @@ const AutoScroller = ({
 
 AutoScroller.defaultProps = {
   speed: "15s",
-  direction: "normal"
+  direction: "normal",
 };
 
 export default AutoScroller;
