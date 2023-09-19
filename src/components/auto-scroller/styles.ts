@@ -10,7 +10,7 @@ const Container = styled.div<IContainer>`
   height: max-content;
   overflow: hidden;
   & > div > * {
-    margin: ${(props) => (props.margin ? props.margin : 0)};
+    margin: ${(props: IContainer) => (props.margin ? props.margin : 0)};
   }
 `;
 
@@ -34,13 +34,7 @@ const movementAnimationSecondary = keyframes`
 
 interface IContentHolder {
   speed: string;
-  direction:
-    | "normal"
-    | "reverse"
-    | "alternate"
-    | "alternate-reverse"
-    | "initial"
-    | "inherit";
+  direction: "normal" | "reverse" | "alternate" | "alternate-reverse" | "initial" | "inherit";
 }
 
 const sharedContentStyles = css`
@@ -50,18 +44,16 @@ const sharedContentStyles = css`
 
 const ContentHolder = styled.div<IContentHolder>`
   ${sharedContentStyles}
-  animation: ${movementAnimationPrimary} linear ${(props) =>
-  props.speed} infinite;
-  animation-direction: ${(props) => props.direction};
+  animation: ${movementAnimationPrimary} linear ${(props: IContentHolder) => props.speed} infinite;
+  animation-direction: ${(props: IContentHolder) => props.direction};
 `;
 
 const DuplicateContentHolder = styled.div<IContentHolder>`
   ${sharedContentStyles}
   position: absolute;
   top: 0;
-  animation: ${movementAnimationSecondary} linear ${(props) => props.speed}
-    infinite;
-  animation-direction: ${(props) => props.direction};
+  animation: ${movementAnimationSecondary} linear ${(props: IContentHolder) => props.speed} infinite;
+  animation-direction: ${(props: IContentHolder) => props.direction};
 `;
 
 const ContentWrapper = styled.div`
@@ -74,5 +66,5 @@ export default {
   Container,
   ContentHolder,
   DuplicateContentHolder,
-  ContentWrapper
+  ContentWrapper,
 };
